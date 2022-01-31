@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import * as React from 'react';
-import { View, Text,} from 'react-native';
+import { View, Text, ActivityIndicator,} from 'react-native';
 import Table from '../../components/Table/Table';
 import { getQuotes} from '../../requests';
 import { Quote } from '../../types';
@@ -9,6 +9,7 @@ const Quotes = () => {
   const cleanupFunction = React.useRef(false)
   const [seconds, setSeconds] = React.useState(0);
   const [isError, setIsError] = React.useState(false)
+  const [isFirstLoadingComplete, setIsFirstLoadingComplete] = React.useState(false)
   const [collectionQuotes, setCollectionQuotes] = React.useState<Quote[]>([])
   const updateQuotes = () => {
     getQuotes().then((res) => {
@@ -24,10 +25,15 @@ const Quotes = () => {
      .catch(() => {
        setIsError(true)
      })
+     .finally(() => {
+       if (!isFirstLoadingComplete && !cleanupFunction.current) setIsFirstLoadingComplete(true)
+     }
+       )
   }
     useFocusEffect(
       React.useCallback(() => {
-       updateQuotes()
+        setIsFirstLoadingComplete(false)
+        updateQuotes()
        cleanupFunction.current = false;
        let interval = null;
        interval = setInterval(() => {
@@ -40,10 +46,15 @@ const Quotes = () => {
         }
       }, [])
     )
-    return <Table 
+    return <>
+    {
+      !isFirstLoadingComplete && <ActivityIndicator size='large' color='blue' />
+    }
+    <Table 
     isError={isError}
     data={collectionQuotes} 
     />
+    </>
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>{collectionQuotes.length}</Text>

@@ -33,8 +33,12 @@ const Table: React.FC<Props> = ({data, isError}) => {
     }, [isError])
     const RenderItem = React.useCallback(({item,index} : {item: Quote, index: number}) =><Row {...item} />,[])
     return <FlatList
+    getItemLayout={(data, index) => (
+        {length: 50, offset: 50 * index, index}
+      )}
     removeClippedSubviews
     maxToRenderPerBatch={15}
+    initialNumToRender={20}
     updateCellsBatchingPeriod={20}
     windowSize={8}
     ListHeaderComponent={Header} 
