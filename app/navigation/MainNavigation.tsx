@@ -20,7 +20,7 @@ const MainNavigation = () => (
      options={{
       tabBarLabel: 'About',
       tabBarIcon: ({ color }) => (
-        <Icon name='about' color={color} size={23} />
+        <Icon name='cubes' color={color} size={23} />
       ),
     }}
     name='Quotes' 

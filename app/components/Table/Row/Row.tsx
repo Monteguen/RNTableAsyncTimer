@@ -13,7 +13,6 @@ const Row: React.FC<Quote> = (props) => {
     return <View style={styles.container}>
        <FlatList 
        horizontal
-
        data={RowsToView}
        keyExtractor={(item) => item}
        renderItem={RenderItem}

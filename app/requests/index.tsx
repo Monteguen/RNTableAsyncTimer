@@ -19,8 +19,8 @@ export interface Answer {
     [key: string]: apiQuote
 }
 export async function getQuotes(): Promise<Quote[]|undefined> {
-    console.log('getting result')
     const res: AxiosResponse<Answer,any> = await axiosInstance.get('public?command=returnTicker')
+   // const er = Math.round( Math.random() )
     if (res && res.status == 200) {
        return Object.entries(res.data).map(([key, value]) => ({name: key, ...value }))
     } 

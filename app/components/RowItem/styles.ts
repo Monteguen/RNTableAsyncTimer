@@ -5,9 +5,11 @@ export const styles = StyleSheet.create({
         flex: 1,
         borderColor: 'orange',
         borderWidth: 1,
-        backgroundColor: 'yellow'
+        backgroundColor: 'yellow',
+        flexDirection: 'row'
     },
     text: {
-     color: 'grey'
+     color: 'grey',
+     flex: 1
     }
 })

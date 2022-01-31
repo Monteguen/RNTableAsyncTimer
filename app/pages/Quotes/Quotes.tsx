@@ -8,20 +8,26 @@ const defaultData: Quote[] = [{"baseVolume": "74921.51348109", "high24hr": "1.06
 const Quotes = () => {
   const cleanupFunction = React.useRef(false)
   const [seconds, setSeconds] = React.useState(0);
-  const [collectionQuotes, setCollectionQuotes] = React.useState<Quote[]>(defaultData)
+  const [isError, setIsError] = React.useState(false)
+  const [collectionQuotes, setCollectionQuotes] = React.useState<Quote[]>([])
   const updateQuotes = () => {
     getQuotes().then((res) => {
-     if (res && !cleanupFunction.current) {
-      res.length =15
-      setCollectionQuotes(res)
-     // const d = new Date()
-     // setSeconds(d.getTime())
-     }
+      if (!cleanupFunction.current) {
+        if (res) {
+          //res.length =15
+          setCollectionQuotes(res)
+          setIsError(false)
+         }
+         else setIsError(true)
+      }
+     })
+     .catch(() => {
+       setIsError(true)
      })
   }
     useFocusEffect(
       React.useCallback(() => {
-       // updateQuotes()
+       updateQuotes()
        cleanupFunction.current = false;
        let interval = null;
        interval = setInterval(() => {
@@ -34,7 +40,10 @@ const Quotes = () => {
         }
       }, [])
     )
-    return <Table data={collectionQuotes} />
+    return <Table 
+    isError={isError}
+    data={collectionQuotes} 
+    />
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>{collectionQuotes.length}</Text>
