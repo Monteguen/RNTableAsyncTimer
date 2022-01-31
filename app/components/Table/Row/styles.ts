@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container: {
         flexDirection: 'row'
     },
     column: {
-        flex: 1/4
+        width: Dimensions.get('window').width/4
     }
 })

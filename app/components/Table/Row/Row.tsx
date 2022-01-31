@@ -1,13 +1,23 @@
 import * as React from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, FlatList} from 'react-native'
 import { Quote } from '../../../types'
+import RowItem from '../../RowItem/RowItem'
 import { styles } from './styles'
+const RowsToView = ['name', 'percentChange','highestBid','last']
 const Row: React.FC<Quote> = (props) => {
+    const RenderItem = ({item,index})=> (
+        <View style={styles.column}>
+        <RowItem label={props[item]} />
+    </View>
+    )
     return <View style={styles.container}>
-        <Text style={styles.column}>{props.name}</Text>
-        <Text style={styles.column}>{props.percentChange}</Text>
-        <Text style={styles.column}>{props.quoteVolume}</Text>
-        <Text style={styles.column}>{props.last}</Text>
+       <FlatList 
+       horizontal
+
+       data={RowsToView}
+       keyExtractor={(item) => item}
+       renderItem={RenderItem}
+       />
     </View>
 }
 export default Row

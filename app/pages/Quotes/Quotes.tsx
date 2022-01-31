@@ -12,28 +12,28 @@ const Quotes = () => {
   const updateQuotes = () => {
     getQuotes().then((res) => {
      if (res && !cleanupFunction.current) {
-       console.log(res)
-     // setCollectionQuotes(res)
-      const d = new Date()
-      setSeconds(d.getTime())
+      res.length =15
+      setCollectionQuotes(res)
+     // const d = new Date()
+     // setSeconds(d.getTime())
      }
      })
   }
-    // useFocusEffect(
-    //   React.useCallback(() => {
-    //    // updateQuotes()
-    //    cleanupFunction.current = false;
-    //    let interval = null;
-    //    interval = setInterval(() => {
-    //     //setSeconds(seconds => seconds + 1);
-    //     updateQuotes()
-    //   }, 2000);
-    //     return () =>  {
-    //       cleanupFunction.current = true;
-    //       clearInterval(interval);
-    //     }
-    //   }, [])
-    // )
+    useFocusEffect(
+      React.useCallback(() => {
+       // updateQuotes()
+       cleanupFunction.current = false;
+       let interval = null;
+       interval = setInterval(() => {
+        //setSeconds(seconds => seconds + 1);
+        updateQuotes()
+      }, 5000);
+        return () =>  {
+          cleanupFunction.current = true;
+          clearInterval(interval);
+        }
+      }, [])
+    )
     return <Table data={collectionQuotes} />
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
