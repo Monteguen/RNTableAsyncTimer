@@ -6,6 +6,7 @@ import { Table } from '../../components';
 import {getQuotes} from '../../requests';
 import {Quote} from '../../types';
 import { TabParams } from '../../navigation/types';
+import { styles } from './styles';
 type Props = MaterialBottomTabScreenProps<TabParams, 'About'>
 const Quotes: React.FC<Props> = () => {
   const cleanupFunction = React.useRef(false);
@@ -50,7 +51,7 @@ const Quotes: React.FC<Props> = () => {
     <>
       <Table isError={isError} data={collectionQuotes} />
       {!isFirstLoadingComplete && (
-        <ActivityIndicator style={{position: 'absolute', top: 50, alignSelf: 'center'}} size="large" color="blue" />
+        <ActivityIndicator style={styles.indicator} size="large" color="blue" />
       )}
     </>
   );

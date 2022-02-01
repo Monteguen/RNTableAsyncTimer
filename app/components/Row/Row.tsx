@@ -24,9 +24,9 @@ const Row: React.FC<Quote> = props => {
 };
 export default React.memo(Row, (prev, next) => {
   return (
-   !( prev.id !== next.id ||
-    prev.last !== next.last ||
-    prev.percentChange !== next.percentChange ||
-    prev.highestBid !== next.highestBid)
+   (prev.id === next.id &&
+    prev.last === next.last &&
+    prev.percentChange === next.percentChange &&
+    prev.highestBid === next.highestBid)
   );
 });
