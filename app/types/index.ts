@@ -12,3 +12,4 @@ export interface Quote {
     high24hr: string,
     low24hr: string
 }
+export type CompareNewValue = 'old' | 'low' | 'high';

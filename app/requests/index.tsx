@@ -1,4 +1,4 @@
-import axios, { AxiosPromise, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Quote } from '../types';
 const baseUrl = 'https://poloniex.com';
 const axiosInstance = axios.create({ baseURL: baseUrl });
@@ -20,7 +20,6 @@ export interface Answer {
 }
 export async function getQuotes(): Promise<Quote[]|undefined> {
     const res: AxiosResponse<Answer,any> = await axiosInstance.get('public?command=returnTicker')
-   // const er = Math.round( Math.random() )
     if (res && res.status == 200) {
        return Object.entries(res.data).map(([key, value]) => ({name: key, ...value }))
     } 
